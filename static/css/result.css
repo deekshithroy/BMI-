@@ -1,0 +1,78 @@
+.bmi-value {
+    font-size: 36px;
+    font-weight: bold;
+    color: #4CAF50;
+    margin: 20px 0;
+}
+
+.result-category {
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 20px 0;
+    display: inline-block;
+}
+
+.underweight {
+    background-color: #e3f2fd;
+    color: #1976d2;
+}
+
+.normal {
+    background-color: #e8f5e8;
+    color: #388e3c;
+}
+
+.overweight {
+    background-color: #fff3e0;
+    color: #f57c00;
+}
+
+.obese {
+    background-color: #ffebee;
+    color: #d32f2f;
+}
+
+.try-again-btn {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+.try-again-btn:hover {
+    background-color: #45a049;
+}
+
+.bmi-ranges {
+    margin-top: 30px;
+    text-align: left;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.bmi-ranges h4 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.bmi-ranges ul {
+    list-style: none;
+    padding: 0;
+}
+
+.bmi-ranges li {
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.bmi-ranges li:last-child {
+    border-bottom: none;
+}

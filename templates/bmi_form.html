@@ -2,84 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BMI Calculator</title>
-  <style>
-    body {
-      background-color: #f0f4f8;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-    }
 
-    .container {
-      background-color: #ffffff;
-      padding: 30px 40px;
-      border-radius: 12px;
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 400px;
-      box-sizing: border-box;
-    }
-
-    h2 {
-      text-align: center;
-      color: #333;
-      margin-bottom: 25px;
-    }
-
-    label {
-      display: block;
-      margin-top: 15px;
-      margin-bottom: 5px;
-      font-weight: 600;
-      color: #555;
-    }
-
-    input[type="text"] {
-      width: 100%;
-      padding: 10px;
-      font-size: 14px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      box-sizing: border-box;
-      transition: border 0.3s;
-    }
-
-    input.error {
-      border: 1px solid red;
-    }
-
-    input.valid {
-      border: 1px solid green;
-    }
-
-    .error-message {
-      color: red;
-      font-size: 12px;
-      margin-top: 5px;
-      display: none;
-    }
-
-    .submit-btn {
-      width: 100%;
-      background-color: #007bff;
-      color: white;
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      margin-top: 25px;
-      transition: background-color 0.3s;
-    }
-
-    .submit-btn:hover {
-      background-color: #0056b3;
-    }
-  </style>
+  <!-- CSS links -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
 </head>
 <body>
   <div class="container">
@@ -97,98 +25,64 @@
     </form>
   </div>
 
+  <script>
+    function validateWeight() {
+        const weight = document.getElementById('weight').value;
+        const weightInput = document.getElementById('weight');
+        const errorSpan = document.getElementById('weightError');
 
-    <script>
-        function validateWeight() {
-            const weight = document.getElementById('weight').value;
-            const weightInput = document.getElementById('weight');
-            const errorSpan = document.getElementById('weightError');
-            
+        if (weight === '' || isNaN(weight) || weight <= 2 || weight > 500) {
             if (weight === '') {
                 errorSpan.textContent = 'Weight is required';
-                errorSpan.style.display = 'block';
-                weightInput.className = 'error';
-                return false;
-            }
-            
-            if (isNaN(weight)) {
+            } else if (isNaN(weight)) {
                 errorSpan.textContent = 'Weight must be a number';
-                errorSpan.style.display = 'block';
-                weightInput.className = 'error';
-                return false;
+            } else if (weight <= 2) {
+                errorSpan.textContent = 'Weight must be greater than 2 kg';
+            } else if (weight > 500) {
+                errorSpan.textContent = 'Weight cannot exceed 500 kg';
             }
-            
-            if (weight <= 0) {
-                errorSpan.textContent = 'Weight must be greater than 0';
-                errorSpan.style.display = 'block';
-                weightInput.className = 'error';
-                return false;
-            }
-            
-            if (weight > 1000) {
-                errorSpan.textContent = 'Weight cannot exceed 1000 kg';
-                errorSpan.style.display = 'block';
-                weightInput.className = 'error';
-                return false;
-            }
-            
-            errorSpan.style.display = 'none';
-            weightInput.className = 'valid';
-            return true;
+            errorSpan.style.display = 'block';
+            weightInput.classList.remove('valid');
+            weightInput.classList.add('error');
+            return false;
         }
-        
-        function validateHeight() {
-            const height = document.getElementById('height').value;
-            const heightInput = document.getElementById('height');
-            const errorSpan = document.getElementById('heightError');
-            
+
+        errorSpan.style.display = 'none';
+        weightInput.classList.remove('error');
+        weightInput.classList.add('valid');
+        return true;
+    }
+
+    function validateHeight() {
+        const height = document.getElementById('height').value;
+        const heightInput = document.getElementById('height');
+        const errorSpan = document.getElementById('heightError');
+
+        if (height === '' || isNaN(height) || height < 50 || height > 300) {
             if (height === '') {
                 errorSpan.textContent = 'Height is required';
-                errorSpan.style.display = 'block';
-                heightInput.className = 'error';
-                return false;
-            }
-            
-            if (isNaN(height)) {
+            } else if (isNaN(height)) {
                 errorSpan.textContent = 'Height must be a number';
-                errorSpan.style.display = 'block';
-                heightInput.className = 'error';
-                return false;
-            }
-            
-            if (height <= 0) {
-                errorSpan.textContent = 'Height must be greater than 0';
-                errorSpan.style.display = 'block';
-                heightInput.className = 'error';
-                return false;
-            }
-            
-            if (height < 50) {
+            } else if (height < 50) {
                 errorSpan.textContent = 'Height must be at least 50 cm';
-                errorSpan.style.display = 'block';
-                heightInput.className = 'error';
-                return false;
-            }
-            
-            if (height > 300) {
+            } else if (height > 300) {
                 errorSpan.textContent = 'Height cannot exceed 300 cm';
-                errorSpan.style.display = 'block';
-                heightInput.className = 'error';
-                return false;
             }
-            
-            errorSpan.style.display = 'none';
-            heightInput.className = 'valid';
-            return true;
+            errorSpan.style.display = 'block';
+            heightInput.classList.remove('valid');
+            heightInput.classList.add('error');
+            return false;
         }
-        
-        function validateForm() {
-            const isWeightValid = validateWeight();
-            const isHeightValid = validateHeight();
-            
-            return isWeightValid && isHeightValid;
-        }
-    </script>
-</center>
+
+        errorSpan.style.display = 'none';
+        heightInput.classList.remove('error');
+        heightInput.classList.add('valid');
+        return true;
+    }
+
+    function validateForm() {
+        return validateWeight() && validateHeight();
+    }
+  </script>
 </body>
 </html>
